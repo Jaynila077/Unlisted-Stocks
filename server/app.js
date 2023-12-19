@@ -8,8 +8,8 @@ app.use(express.json());
 routes(app);
 
 try {
-  app.listen(5000, () => {
-    console.log("server is running at port 5000");
+  app.listen(5001, () => {
+    console.log("server is running at port 5001");
   });
 } catch (err) {
   console.log(err);

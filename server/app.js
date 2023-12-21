@@ -1,28 +1,24 @@
 import express from "express";
 import routes from "./routes/index";
 import { Sequelize } from "sequelize";
-import config from "./config";
-const sequelize = new Sequelize(config);
+import config from "./config/index";
 
 const app = express();
-
+const sequelize = new Sequelize(config.database, config.user, config.password, {
+  host: config.host,
+  dialect: config.dialect,
+  port: config.port,
+  logging: console.log,
+});
 app.use(express.json());
-
 routes(app);
-
-try {
-  sequelize
-    .sync({ force: true }) // Use force: true only during development to drop tables on every sync
-    .then(() => {
-      console.log("Database synchronized");
-    })
-    .catch((error) => {
-      console.error("Error synchronizing database:", error);
-    });
-
-  app.listen(5001, () => {
-    console.log("server is running at port 5001");
-  });
-} catch (err) {
-  console.log(err);
+async function createDBConnection() {
+  try {
+    await sequelize.sync({ force: false });
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
 }
+createDBConnection();
+app.listen(5000, () => console.log("Server is running on port 3000"));

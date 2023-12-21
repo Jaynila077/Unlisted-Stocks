@@ -11,10 +11,6 @@ app.use(express.json());
 routes(app);
 
 try {
-<<<<<<< HEAD
-  app.listen(5001, () => {
-    console.log("server is running at port 5001");
-=======
   sequelize
     .sync({ force: true }) // Use force: true only during development to drop tables on every sync
     .then(() => {
@@ -24,9 +20,8 @@ try {
       console.error("Error synchronizing database:", error);
     });
 
-  app.listen(5000, () => {
-    console.log("server is running at port 5000");
->>>>>>> refs/remotes/origin/dev
+  app.listen(5001, () => {
+    console.log("server is running at port 5001");
   });
 } catch (err) {
   console.log(err);

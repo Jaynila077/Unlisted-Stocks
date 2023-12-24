@@ -1,4 +1,4 @@
-module.exports = (Sequelize, DataTypes) => {
+export default function user (Sequelize, DataTypes) {
   const User = Sequelize.define("user", {
     id: {
       type: DataTypes.UUID,
@@ -34,6 +34,9 @@ module.exports = (Sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
+  },{
+    paranoid: true,
+    tableName: "tb_user"
   });
 
   return User;

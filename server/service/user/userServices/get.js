@@ -6,7 +6,7 @@ const all = async () => {
 };
 
 const byId = async (id) => {
-  const users = await db.user.find({ where: { id } });
+  const users = await db.user.findAll({ where: { id } });
   return users;
 };
 
@@ -14,4 +14,3 @@ export default {
   all,
   byId,
 };
-

@@ -9,7 +9,7 @@ const getAllUser = async (req, res) => {
   try {
     const users = await getUserService.all();
     console.log(users);
-    res.status(200).json(users);
+    res.status(200).json({ success: true, data: users });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -18,7 +18,7 @@ const getAllUser = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const users = await getUserService.byId(req.params.id);
-    res.status(200).json(users);
+    res.status(200).json({ success: true, data: users });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -28,17 +28,17 @@ const postUser = async (req, res) => {
   try {
     const users = await postUserService.create(req.body);
     console.log("Post user");
-    res.status(200).json(users);
+    res.status(200).json({ success: true, data: users });
   } catch (err) {
     console.log(err);
-    res.status(500).json({error:err.message});
+    res.status(500).json({ error: err.message });
   }
 };
 
 const putUser = async (req, res) => {
   try {
     const users = await putUserService.update(req.params.id, req.body);
-    res.status(200).json(users);
+    res.status(200).json({ success: true, data: users });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -47,7 +47,7 @@ const putUser = async (req, res) => {
 const removeUser = async (req, res) => {
   try {
     const users = await deleteUserService.remove(req.params.id);
-    res.status(200).json(users);
+    res.status(200).json({ success: true, message: "User deleted" });
   } catch (err) {
     res.status(500).json(err);
   }

@@ -2,10 +2,10 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '../config.env' });
 
 export default {
-  host: process.env.host ,
-  user: process.env.user ,
+  host: process.env.host | 'localhost',
+  user: process.env.user | 'prostgres',
   password: process.env.password, 
-  database: process.env.database, 
-  dialect: process.env.dialect , 
-  port: process.env.port,
+  database: process.env.database | 'unlisted_stocks', 
+  dialect: process.env.dialect | 'postgres', 
+  port: process.env.port | '5432' ,
 };

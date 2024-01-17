@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 import {
   getUserService,
   postUserService,
@@ -26,8 +27,13 @@ const getUserById = async (req, res) => {
 
 const postUser = async (req, res) => {
   try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    req.body.password = hashedPassword;
+
     const users = await postUserService.create(req.body);
+
     console.log("Post user");
+    
     res.status(200).json({ success: true, data: users });
   } catch (err) {
     console.log(err);

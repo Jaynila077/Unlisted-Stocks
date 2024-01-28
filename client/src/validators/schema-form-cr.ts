@@ -8,24 +8,14 @@ const firstStepSchema = z.object({
     address: z.string().min(3),
   });
 
-const secondStepSchema = z.object({
+const secondStepSchema = firstStepSchema.extend({
     step: z.literal(2),
-    comapyDiscription: z.string().min(100),
-    companyType: z.enum(["Private", "Public"]),
-    companySize: z.enum(["Small", "Medium", "Large"]),
-    companyLogo: z.string().url(),
-    industrySector: z.enum(["Agriculture", "Manufacturing", "Mining", "Services", "Transport", "Other"]),
-    tagetMarket: z.string().min(3),
-    costomerBase: z.string().min(10),
+    companyDescription: z.string().min(3),
   });
 
-const thirdStepSchema = z.object({
-    step : z.literal(3),
-});
-
+  
 export const schema = z.discriminatedUnion("step", [
     firstStepSchema,
     secondStepSchema,
-    thirdStepSchema,
   ]);
  

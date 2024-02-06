@@ -10,6 +10,10 @@ import {
   useFormContext,
 } from "react-hook-form"
 
+import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
@@ -164,6 +168,51 @@ const FormMessage = React.forwardRef<
 })
 FormMessage.displayName = "FormMessage"
 
+type FormStepProps = {
+  children: React.ReactNode;
+  step: number;
+  currentStep: number;
+  title: string;
+  description: string;
+  onPrevStepClick: () => void;
+};
+
+function FormStep({
+  children,
+  step,
+  currentStep,
+  title,
+  description,
+  onPrevStepClick,
+}: FormStepProps) {
+  if (step !== currentStep) {
+    return null;
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <CardHeader className="px-0 pb-0">
+        <div className="relative w-full text-center">
+          {currentStep !== 1 ? (
+            <Button
+              className="absolute left-0 top-1/2 -translate-y-1/2"
+              size="sm"
+              variant="ghost"
+              onClick={onPrevStepClick}
+              type="button"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </Button>
+          ) : null}
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </div>
+      </CardHeader>
+      <div className="flex flex-col gap-4">{children}</div>
+    </div>
+  );
+}
+
 export {
   useFormField,
   Form,
@@ -173,4 +222,5 @@ export {
   FormDescription,
   FormMessage,
   FormField,
+  FormStep,
 }

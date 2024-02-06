@@ -9,11 +9,11 @@ import { buttonVariants } from "@/components/ui/button"
 import AuthForm from  "@/app/auth/user/components/form"
 
 export const metadata: Metadata = {
-  title: "Registration",
+  title: "Login",
   description: "Welcome to Unlisted Stocks",
 }
 
-export default function RegistrationPage() {
+export default function LoginPage() {
 
   return (
     <div className="">

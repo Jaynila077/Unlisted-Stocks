@@ -31,12 +31,12 @@ export default function user (Sequelize, DataTypes) {
     },
     mobile_number: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
   },{
     paranoid: true,
-    tableName: "tb_user"
+    tableName: "users",
   });
 
   return User;

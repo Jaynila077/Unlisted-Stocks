@@ -3,8 +3,12 @@ import routes from "./routes/index";
 import { Sequelize } from "sequelize";
 import config from "./config/index";
 import db from "./models/index";
+import cors from "cors";
 
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 app.use(express.json());
 routes(app);
 

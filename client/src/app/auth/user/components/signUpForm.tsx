@@ -8,26 +8,61 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
 import { Loader2 } from "lucide-react"
+import Link from "next/link"
+
+import { useSignup } from "@/hooks/useSignup"
+import { useState } from "react"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
+  const { error, signup } = useSignup();
+  const [formData, setFormData] = useState({ name: '', email: '',password: '' });
+
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const onSubmit = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+    const { name, email ,password } = formData;
+    signup(name, email ,password);
+
     setIsLoading(true)
 
     setTimeout(() => {
       setIsLoading(false)
     }, 3000)
-  }
+  };
+
+  
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="name">
+              Name
+            </Label>
+            <Input
+              id="name"
+              placeholder="Name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              name="name"
+              autoCapitalize="none"
+              autoComplete="username"
+              autoCorrect="off"
+              disabled={isLoading}
+            />
             <Label className="sr-only" htmlFor="email">
               Email
             </Label>
@@ -35,9 +70,25 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               id="email"
               placeholder="name@example.com"
               type="email"
+              value={formData.email}
+              onChange={handleChange}
+              name="email"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
+              disabled={isLoading}
+            />
+            <Label className="sr-only" htmlFor="password">
+              Password
+            </Label>
+            <Input
+              id="password"
+              placeholder="Password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              name="password"
+              autoComplete="current-password"
               disabled={isLoading}
             />
           </div>
@@ -45,7 +96,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             {isLoading && (
               <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
             )}
-            Sign In with Email
+            Sing Up
           </Button>
         </div>
       </form>
@@ -55,18 +106,19 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
+            Or signin with existing account
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <Link href={"/auth/user/login"}>
+      <Button className="w-96" variant="outline" type="button" disabled={isLoading}>
         {isLoading ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
         ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
+          "SIGN IN"
         )}{" "}
-        Github
       </Button>
+      </Link>
     </div>
   )
 }

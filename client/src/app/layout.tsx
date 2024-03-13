@@ -5,6 +5,8 @@ import './globals.css'
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
+
+import { AuthContextProvider } from '../../context/authContext'
  
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,6 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <AuthContextProvider>
       <body className={inter.className}>
       <ThemeProvider
             attribute="class"
@@ -37,6 +40,7 @@ export default function RootLayout({
                 </div>
           </ThemeProvider>
         </body>
+        </AuthContextProvider>
     </html>
   )
 }

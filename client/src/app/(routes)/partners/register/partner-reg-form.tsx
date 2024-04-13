@@ -49,6 +49,25 @@ type FormData = {
   managementPersonnel: ManagementPersonnel[];
   keyManagementPersonnel: string;
   boardComposition: string;
+  fundingOverview: string;
+  investor1Stake: string;
+  investor2Stake: string;
+  legalStatus: string; 
+  regulatoryCompliance: string; 
+  pendingLegalIssues: string;
+  intellectualPropertyDetails: {
+    patents: string[]; 
+    trademarks: string[]; 
+    copyrights: string[]; 
+  };
+  licensingAgreements: string;
+  marketPresenceOverview: string;
+  customerTestimonials: string;
+  marketShareAndLandscape: string;
+  growthStrategy: string; 
+  expansionStrategies: string;
+  investmentProposalDocument: File | null;
+  valuationDetailsDocument: File | null;
 };
 
 type ManagementPersonnel = {
@@ -404,6 +423,221 @@ export default function PartnerRegistrationForm() {
               <FormMessage />
             </FormItem>
           </FormStep>
+          <FormStep
+           step={6}
+           currentStep={step}
+           title="Funding History"
+           description={`${step}/${maxSteps} - Funding History`}
+           onPrevStepClick={prevStep}
+          >
+            <FormItem>
+              <FormLabel>Overview of past funding rounds, if applicable</FormLabel>
+              <FormControl>
+                <Textarea
+                placeholder="Enter overview of past funding rounds"
+                {...form.register("fundingOverview")}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+
+            <FormItem>
+              <FormLabel>Details of existing investors and their stakes</FormLabel>
+              <FormControl>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Investor</th>
+                      <th>Type</th>
+                      <th>Stake</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Investor 1</td>
+                      <td>Venture Capitalist</td>
+                      <td>
+                        <input
+                          type="text"
+                          {...form.register("investor1Stake")}
+                          placeholder="Percentage"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          </FormStep>
+          <FormStep 
+           step={7}
+           currentStep={step}
+           title="Legal and Compliance"
+           description={`${step}/${maxSteps} - Legal and Compliance`}
+           onPrevStepClick={prevStep}
+          >
+           <FormItem>
+             <FormLabel>Confirmation of legal status (private limited company)</FormLabel>
+             <FormControl>
+              <Select {...form.register("legalStatus")}>
+                <SelectTrigger />
+                <SelectContent>
+                  <SelectItem value="yes">Yes, the company is registered as a private limited company.</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+                <SelectValue />
+              </Select>
+             </FormControl>
+             <FormMessage />
+           </FormItem>
+
+           <FormItem>
+            <FormLabel>Compliance with regulatory requirements</FormLabel>
+            <FormControl>
+              <Textarea
+                placeholder="Enter details about compliance with regulatory requirements..."
+                {...form.register("regulatoryCompliance")}
+              />
+            </FormControl>
+            <FormMessage />
+           </FormItem>
+
+             <FormItem>
+              <FormLabel>Any pending legal issues or disputes</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter details about pending legal issues or disputes..."
+                  {...form.register("pendingLegalIssues")}
+                />
+              </FormControl>
+              <FormMessage />
+             </FormItem>
+          </FormStep>
+          <FormStep 
+            step={8}
+            currentStep={step}
+            title="Intellectual Property"
+            description={`${step}/${maxSteps} - Intellectual Property`}
+            onPrevStepClick={prevStep}
+          >
+            <FormItem>
+              <FormLabel>Details of intellectual property assets</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter details of intellectual property assets..."
+                  {...form.register("intellectualPropertyDetails")}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+
+            <FormItem>
+              <FormLabel>Licensing agreements or partnerships related to intellectual property</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter details about licensing agreements or partnerships..."
+                  {...form.register("licensingAgreements")}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          </FormStep>
+          <FormStep 
+            step={9}
+            currentStep={step}
+            title="Market Presence"
+            description={`${step}/${maxSteps} - Market Presence`}
+            onPrevStepClick={prevStep}
+          >
+            <FormItem>
+              <FormLabel>Overview of the company's market presence</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter overview of the company's market presence..."
+                  {...form.register("marketPresenceOverview")}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+
+            <FormItem>
+              <FormLabel>Customer testimonials or case studies</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter customer testimonials or case studies..."
+                  {...form.register("customerTestimonials")}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+
+            <FormItem>
+              <FormLabel>Market share and competitive landscape</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter market share and competitive landscape details..."
+                  {...form.register("marketShareAndLandscape")}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          </FormStep>
+          <FormStep
+            step={10}
+            currentStep={step}
+            title="Future Growth Plans"
+            description={`${step}/${maxSteps} - Future Growth Plans`}
+            onPrevStepClick={prevStep}
+          >
+            <FormItem>
+              <FormLabel>Outline of Growth Strategy</FormLabel>
+              <Textarea
+                placeholder="Enter detailed overview of the company's growth strategy..."
+                {...form.register("growthStrategy")}
+              />
+            </FormItem>
+  
+            <FormItem>
+              <FormLabel>Expansion Plans and Market Penetration Strategies</FormLabel>
+              <Textarea
+                placeholder="Enter expansion plans and market penetration strategies..."
+                {...form.register("expansionStrategies")}
+              />
+            </FormItem>
+          </FormStep>
+          <FormStep
+            step={11}
+            currentStep={step}
+            title="Investment Proposal"
+            description={`${step}/${maxSteps} - Investment Proposal`}
+            onPrevStepClick={prevStep}
+          >
+            <FormItem>
+              <FormLabel>Upload Investment Proposal Document</FormLabel>
+              <FileInput
+                accept=".pdf,.doc,.docx"
+                {...form.register("investmentProposalDocument")}
+              />
+              <FormMessage>
+                Please upload a structured proposal document outlining funding requirements, use of funds, and proposed terms. (Formats: PDF, DOC, DOCX)
+              </FormMessage>
+            </FormItem>
+
+            <FormItem>
+              <FormLabel>Upload Valuation Details Document</FormLabel>
+              <FileInput
+                accept=".pdf,.doc,.docx"
+                {...form.register("valuationDetailsDocument")}
+              />
+              <FormMessage>
+                Please upload a document containing valuation details and relevant financial metrics. (Formats: PDF, DOC, DOCX)
+              </FormMessage>
+            </FormItem>
+          </FormStep>
+
+
+
              <Button
                 key={step === maxSteps ? "submit-btn" : "next-step-btn"}
                 type={step === maxSteps ? "submit" : "button"}

@@ -39,5 +39,11 @@ export default function user (Sequelize, DataTypes) {
     tableName: "users",
   });
 
+  User.associate = (models) => {
+    User.hasMany(models.owner_company, {
+      foreignKey: "owner_id",
+    });
+  }
+
   return User;
 };
